@@ -8,8 +8,8 @@ import { Box, Container, Typography } from "@mui/material"
  */
 export const CustomPage = (props)=>{
     return (
-        <Container>
-            <Typography>{props?.title ?? 'Title'}</Typography>
+        <Container sx={{mt:4}}>
+            <Typography sx={{fontWeight:700, textTransform:'uppercase', fontSize:20, textAlign:'center'}}>{props?.title ?? 'Title'}</Typography>
             <Box>
                 {props?.children}
             </Box>
