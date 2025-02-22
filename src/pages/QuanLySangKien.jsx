@@ -22,12 +22,12 @@ export const QuanLySangKien = () => {
     };
     return (
         <CustomPage title="Quản lý sáng kiến">
-            <Typography>Table of ideas</Typography>
             <CustomTable
                 columns={columns}
                 data={data}
                 onDelete={handleDelete}
                 onGoToDetail={handleGoToDetail}
+                onCreate={()=>alert('create button pressed')}
             />
         </CustomPage>
     )

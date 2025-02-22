@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import {
   Table, TableHead, TableBody, TableRow, TableCell, TableContainer, Paper,
   IconButton, Menu, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions, Button,
-  TablePagination
+  TablePagination,
+  Box,
+  Typography
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export const CustomTable = ({ columns, data, onDelete, onGoToDetail }) => {
+export const CustomTable = ({ columns, data, onDelete, onGoToDetail, onCreate }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -49,7 +51,10 @@ export const CustomTable = ({ columns, data, onDelete, onGoToDetail }) => {
   };
 
   return (
-    <>
+    <Box>
+      <Button variant="outlined" sx={{marginBottom:1}} onClick={onCreate}>
+        <Typography sx={{fontSize:14, fontWeight:600}}>+ Create</Typography>
+      </Button>
       <TableContainer component={Paper}>
         <Table>
           {/* Table Head */}
@@ -113,6 +118,6 @@ export const CustomTable = ({ columns, data, onDelete, onGoToDetail }) => {
           <Button onClick={handleConfirmDelete} color="error" variant="contained">Delete</Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 };
