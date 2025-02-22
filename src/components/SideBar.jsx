@@ -1,7 +1,7 @@
-import { Box, Stack, styled, Typography } from "@mui/material"
-import { OPACITY_TO_HEX, ATagStyled } from "../constants"
+import { Box, Stack, styled, Typography } from "@mui/material";
+import { OPACITY_TO_HEX, ATagStyled } from "../constants";
 
-const drawerItems = [
+const sidebarItems = [
     {
         name: 'Quản lý Trang chủ',
         link: '/',
@@ -12,7 +12,7 @@ const drawerItems = [
     },
     {
         name: 'Quản lý Nhà Truyền Thống',
-        link: '/sang-kien',
+        link: '/nha-truyen-thong',
     },
 ];
 
@@ -20,25 +20,30 @@ export const SideBar = () => {
     return (
         <SideBarContainer>
             <Stack spacing={2}>
-
-            {drawerItems.map((item) => <SideBarItem name={item.name} link={item.link} />)}
+                {sidebarItems.map((item, index) => (
+                    <SideBarItem key={index} name={item.name} link={item.link} />
+                ))}
             </Stack>
         </SideBarContainer>
-    )
-}
+    );
+};
 
-const SideBarItem = (props) => {
+const SideBarItem = ({ name, link }) => {
     return (
-        <ATagStyled href={props.link}>
-            <Typography sx={{ color: 'white' }}>{props.name}</Typography>
+        <ATagStyled href={link}>
+            <Typography sx={{ color: "white" }}>{name}</Typography>
         </ATagStyled>
-    )
-}
+    );
+};
 
 const SideBarContainer = styled(Box)({
-    minHeight: '100vh',
-    width: 250,
-    backgroundColor: `#000000${OPACITY_TO_HEX['75']}`,
+    position: "fixed", // Keep sidebar fixed in place
+    top: 0,
+    left: 0,
+    height: "100vh", // Full height of the viewport
+    width: 250, // Sidebar width
+    backgroundColor: `#000000${OPACITY_TO_HEX["75"]}`,
     paddingLeft: 8,
-    paddingTop:32
-})
+    paddingTop: 32,
+    overflowY: "auto", // Prevent content from making sidebar scroll
+});

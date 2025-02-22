@@ -1,22 +1,18 @@
-import { Box, Stack } from "@mui/material"
-import { Outlet } from "react-router"
-import { SideBar } from "./SideBar"
+import { Box, Stack } from "@mui/material";
+import { SideBar } from "./SideBar";
+import { Outlet } from "react-router";
 
 export const Layout = () => {
     return (
         <Box>
-            <Stack direction={'row'}>
+            <Stack direction={"row"}>
                 <SideBar />
-                <Outlet />
-            </Stack>
-            {/* <Grid2 container>
-                <Grid2 size={3}>
-                    <SideBar />
-                </Grid2>
-                <Grid2 size={9}>
+                {/* Ensure content does not overlap with the sidebar */}
+                <Box sx={{ flex: 1, marginLeft: "250px", padding: "16px" }}>
                     <Outlet />
-                </Grid2>
-            </Grid2> */}
+                </Box>
+            </Stack>
         </Box>
-    )
-}
+    );
+};
+
