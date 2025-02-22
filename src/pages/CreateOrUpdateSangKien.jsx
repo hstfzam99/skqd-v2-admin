@@ -19,9 +19,17 @@ export const CreateOrUpdateSangKien = () => {
         resolver: yupResolver(schema),
     });
 
+    // get params, if params.id !==null => isEdit = true
+    
+
     const onSubmit = (data) => {
         console.log("Form Submitted:", data);
+        // if isEdit = true => call hook onCreate (data)
+        // if isEdit = false => call hook onUpdate (id, data)
     };
+
+    // useEffect: if isEdit = true, fetch detail and setValue
+    
 
     return (
         <CustomPage title="Tạo mới sáng kiến">
