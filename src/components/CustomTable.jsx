@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { 
-  Table, TableHead, TableBody, TableRow, TableCell, TableContainer, Paper, 
-  IconButton, Menu, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions, Button
+import {
+  Table, TableHead, TableBody, TableRow, TableCell, TableContainer, Paper,
+  IconButton, Menu, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions, Button,
+  TablePagination
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -9,7 +10,10 @@ export const CustomTable = ({ columns, data, onDelete, onGoToDetail }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  // Handle menu open
   const handleMenuOpen = (event, row) => {
     setAnchorEl(event.currentTarget);
     setSelectedRow(row);
@@ -19,6 +23,7 @@ export const CustomTable = ({ columns, data, onDelete, onGoToDetail }) => {
     setAnchorEl(null);
   };
 
+  // Handle delete click
   const handleDeleteClick = () => {
     setOpenConfirm(true);
     handleMenuClose();
@@ -30,6 +35,17 @@ export const CustomTable = ({ columns, data, onDelete, onGoToDetail }) => {
     }
     setOpenConfirm(false);
     setSelectedRow(null);
+  };
+
+  // Handle page change
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  // Handle rows per page change
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset page when changing rows per page
   };
 
   return (
@@ -50,14 +66,13 @@ export const CustomTable = ({ columns, data, onDelete, onGoToDetail }) => {
 
           {/* Table Body */}
           <TableBody>
-            {data.map((row, rowIndex) => (
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowIndex) => (
               <TableRow key={rowIndex}>
                 {columns.map((col, colIndex) => (
                   <TableCell key={colIndex} align={col.align || "left"}>
                     {col.render ? col.render(row) : row[col.field]}
                   </TableCell>
                 ))}
-
                 {/* Action Column */}
                 <TableCell align="center">
                   <IconButton onClick={(event) => handleMenuOpen(event, row)}>
@@ -68,6 +83,17 @@ export const CustomTable = ({ columns, data, onDelete, onGoToDetail }) => {
             ))}
           </TableBody>
         </Table>
+
+        {/* Pagination */}
+        <TablePagination
+          component="div"
+          count={data.length}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          onPageChange={handleChangePage}
+          rowsPerPageOptions={[5, 10, 25]}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
 
       {/* Menu for Actions */}
