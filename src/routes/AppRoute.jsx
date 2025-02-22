@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
 import { Layout } from "../components/Layout";
-import { QuanLyTrangChu, QuanLySangKien, QuanLyNhaTruyenThong } from "../pages";
+import { QuanLyTrangChu, QuanLySangKien, QuanLyNhaTruyenThong, CreateOrUpdateSangKien } from "../pages";
 
 export const AppRoute = () => {
     return (
@@ -8,7 +8,8 @@ export const AppRoute = () => {
             <Route path="/" element={<Layout />}>
                 <Route index element={<QuanLyTrangChu />} />
                 <Route path="sang-kien" element={<QuanLySangKien />} />
-                <Route path="nha-truyen-thong" element={<QuanLyNhaTruyenThong />} />                
+                <Route path="nha-truyen-thong" element={<QuanLyNhaTruyenThong />} /> 
+                <Route path="them-sang-kien" element={<CreateOrUpdateSangKien />} />                
             </Route>
         </Routes>
     )
