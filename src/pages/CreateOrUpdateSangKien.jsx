@@ -3,6 +3,7 @@ import { Button, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { BaseInput, CustomPage } from "../components";
+import { useSnackbar } from 'notistack';
 
 const schema = yup.object().shape({
     username: yup.string().required("Username is required"),
@@ -18,18 +19,22 @@ export const CreateOrUpdateSangKien = () => {
     } = useForm({
         resolver: yupResolver(schema),
     });
+    const { enqueueSnackbar } = useSnackbar();
+
 
     // get params, if params.id !==null => isEdit = true
-    
+
 
     const onSubmit = (data) => {
         console.log("Form Submitted:", data);
         // if isEdit = true => call hook onCreate (data)
         // if isEdit = false => call hook onUpdate (id, data)
+
+        enqueueSnackbar('success', { variant: 'success' });
     };
 
     // useEffect: if isEdit = true, fetch detail and setValue
-    
+
 
     return (
         <CustomPage title="Tạo mới sáng kiến">
